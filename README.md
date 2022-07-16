@@ -1,3 +1,3 @@
-# react-wheater-app
+# react-weather-app
 
-[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/react-59t5av)
+[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/react-weather-app-project)
