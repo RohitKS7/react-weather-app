@@ -6,11 +6,12 @@ import './style.css';
 
 const Temp = () => {
   const [searchValue, setSearchValue] = useState('agra');
+  const [tempInfo, setTempInfo] = useState({});
 
   const getWeatherInfo = async () => {
     try {
       // add API url
-      let url = `https://api.openweathermap.org/data/2.5/weather?q=${searchValue}&appid=65c2a36f1d3f86adcd200d20c9003d69`;
+      let url = `https://api.openweathermap.org/data/2.5/weather?q=${searchValue}&units=metric&appid=65c2a36f1d3f86adcd200d20c9003d69`;
 
       // fetching the data
       const response = await fetch(url);
@@ -19,6 +20,34 @@ const Temp = () => {
       const data = await response.json();
 
       console.log(data);
+
+      // getting different data from json
+      const { temp, pressure, humidity } = data.main;
+      // console.log(`Temp: ${temp},Pressure: ${pressure},Humidity: ${humidity}`);
+
+      const [{ main }] = data.weather;
+      const weatherMood = main;
+      // console.log(weatherMood);
+
+      const { name } = data;
+
+      const { speed } = data.wind;
+
+      const { country, sunset } = data.sys;
+
+      // new object to store all the data in one place
+      const myNewWeatherData = {
+        temp,
+        humidity,
+        pressure,
+        weatherMood,
+        name,
+        speed,
+        country,
+        sunset,
+      };
+
+      setTempInfo(myNewWeatherData);
     } catch (error) {
       console.log(error);
     }
@@ -54,7 +83,7 @@ const Temp = () => {
       </div>
 
       {/* our Weather Card */}
-      <WeatherCard />
+      <WeatherCard tempInfo={tempInfo}/>
     </>
   );
 };

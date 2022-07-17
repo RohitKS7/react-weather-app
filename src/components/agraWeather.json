@@ -1,0 +1,26 @@
+{
+  "coord": { "lon": 78.0167, "lat": 27.1833 },
+  "weather": [
+    { "id": 801, "main": "Clouds", "description": "few clouds", "icon": "02d" }
+  ],
+  "base": "stations",
+  "main": {
+    "temp": 312.35,
+    "feels_like": 314.76,
+    "temp_min": 312.35,
+    "temp_max": 312.35,
+    "pressure": 1001,
+    "humidity": 30,
+    "sea_level": 1001,
+    "grnd_level": 982
+  },
+  "visibility": 10000,
+  "wind": { "speed": 4.01, "deg": 112, "gust": 5.41 },
+  "clouds": { "all": 16 },
+  "dt": 1658038356,
+  "sys": { "country": "IN", "sunrise": 1658016221, "sunset": 1658065440 },
+  "timezone": 19800,
+  "id": 1279259,
+  "name": "Agra",
+  "cod": 200
+}

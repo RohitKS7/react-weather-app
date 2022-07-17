@@ -1,6 +1,22 @@
 import React, { useEffect } from 'react';
 
-const WeatherCard = () => {
+const WeatherCard = ({ tempInfo }) => {
+  const {
+    temp,
+    humidity,
+    pressure,
+    weatherMood,
+    name,
+    speed,
+    country,
+    sunset,
+  } = tempInfo;
+
+  // converting the seconds into readable time convention
+  let sec = sunset;
+  let date = new Date(sec * 1000); // you get milisecond
+  let timeStr = `${date.getHours()}:${date.getMinutes()}`;
+
   return (
     <>
       <article className="widget">
@@ -10,12 +26,14 @@ const WeatherCard = () => {
 
         <div className="weatherInfo">
           <div className="temperature">
-            <span>25.5&deg;</span>
+            <span>{temp}&deg;</span>
           </div>
 
           <div className="description">
-            <div className="weatherCondition">Sunny</div>
-            <div className="place">Agra, India</div>
+            <div className="weatherCondition">{weatherMood}</div>
+            <div className="place">
+              {name}, {country}
+            </div>
           </div>
         </div>
 
@@ -29,8 +47,7 @@ const WeatherCard = () => {
                 <i className={'wi wi-sunset'}></i>
               </p>
               <p className="extra-info-leftside">
-                {' '}
-                10: 03 PM <br />
+                {timeStr} <br />
                 Sunset
               </p>
             </div>
@@ -40,8 +57,7 @@ const WeatherCard = () => {
                 <i className={'wi wi-humidity'}></i>
               </p>
               <p className="extra-info-leftside">
-                {' '}
-                35 <br />
+                {humidity} <br />
                 Humidity
               </p>
             </div>
@@ -53,8 +69,7 @@ const WeatherCard = () => {
                 <i className={'wi wi-rain'}></i>
               </p>
               <p className="extra-info-leftside">
-                {' '}
-                45 <br />
+                {pressure} <br />
                 Pressure
               </p>
             </div>
@@ -64,8 +79,7 @@ const WeatherCard = () => {
                 <i className={'wi wi-strong-wind'}></i>
               </p>
               <p className="extra-info-leftside">
-                {' '}
-                10 <br />
+                {speed} <br />
                 Speed
               </p>
             </div>
