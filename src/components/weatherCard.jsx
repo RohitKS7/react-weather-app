@@ -1,16 +1,37 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const WeatherCard = ({ tempInfo }) => {
-  const {
-    temp,
-    humidity,
-    pressure,
-    weatherMood,
-    name,
-    speed,
-    country,
-    sunset,
-  } = tempInfo;
+const WeatherCard = ({  temp,
+  humidity,
+  pressure,
+  weatherMood,
+  name,
+  speed,
+  country,
+  sunset, }) => {
+  const [weatherState, setWeatherState] = useState()
+
+  useEffect(()=>{
+    if(weatherMood){ // if weatherMood changes, then only run this effect hook
+      switch (weatherMood) {
+        case "Clouds": // when Clouds 
+          setWeatherState("wi-day-cloudy"); // show this icon
+          break;
+        case "Haze":
+          setWeatherState("wi-fog");
+          break;
+        case "Clear":
+          setWeatherState("wi-day-sunny");
+          break;
+        case "Mist":
+          setWeatherState("wi-dust");
+          break;
+
+        default:
+          setWeatherState("wi-day-sunny");
+          break;
+      }
+    }
+  }, [weatherMood])
 
   // converting the seconds into readable time convention
   let sec = sunset;
@@ -21,7 +42,7 @@ const WeatherCard = ({ tempInfo }) => {
     <>
       <article className="widget">
         <div className="weatherIcon">
-          <i className={`wi wi-day-sunny`}></i>
+          <i className={`wi ${weatherState}`}></i>
         </div>
 
         <div className="weatherInfo">
@@ -47,7 +68,7 @@ const WeatherCard = ({ tempInfo }) => {
                 <i className={'wi wi-sunset'}></i>
               </p>
               <p className="extra-info-leftside">
-                {timeStr} <br />
+                {timeStr} PM <br />
                 Sunset
               </p>
             </div>

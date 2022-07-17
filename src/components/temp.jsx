@@ -5,8 +5,8 @@ import WeatherCard from './weatherCard';
 import './style.css';
 
 const Temp = () => {
-  const [searchValue, setSearchValue] = useState('agra');
-  const [tempInfo, setTempInfo] = useState({});
+  const [searchValue, setSearchValue] = useState('delhi');
+  const [tempInfo, setTempInfo] = useState();
 
   const getWeatherInfo = async () => {
     try {
@@ -18,8 +18,6 @@ const Temp = () => {
 
       // converting the data to json format
       const data = await response.json();
-
-      console.log(data);
 
       // getting different data from json
       const { temp, pressure, humidity } = data.main;
@@ -46,7 +44,6 @@ const Temp = () => {
         country,
         sunset,
       };
-
       setTempInfo(myNewWeatherData);
     } catch (error) {
       console.log(error);
@@ -55,7 +52,7 @@ const Temp = () => {
 
   // by default at first render, weather of Agra must be shown in app
   useEffect(() => {
-    getWeatherInfo;
+    getWeatherInfo();
   }, []);
 
   return (
@@ -83,7 +80,7 @@ const Temp = () => {
       </div>
 
       {/* our Weather Card */}
-      <WeatherCard tempInfo={tempInfo}/>
+      <WeatherCard {...tempInfo} />
     </>
   );
 };
