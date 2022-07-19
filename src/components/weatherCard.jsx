@@ -1,21 +1,60 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const WeatherCard = () => {
+const WeatherCard = ({  temp,
+  humidity,
+  pressure,
+  weatherMood,
+  name,
+  speed,
+  country,
+  sunset, }) => {
+  const [weatherState, setWeatherState] = useState()
+
+  useEffect(()=>{
+    if(weatherMood){ // if weatherMood changes, then only run this effect hook
+      switch (weatherMood) {
+        case "Clouds": // when Clouds 
+          setWeatherState("wi-day-cloudy"); // show this icon
+          break;
+        case "Haze":
+          setWeatherState("wi-fog");
+          break;
+        case "Clear":
+          setWeatherState("wi-day-sunny");
+          break;
+        case "Mist":
+          setWeatherState("wi-dust");
+          break;
+
+        default:
+          setWeatherState("wi-day-sunny");
+          break;
+      }
+    }
+  }, [weatherMood])
+
+  // converting the seconds into readable time convention
+  let sec = sunset;
+  let date = new Date(sec * 1000); // you get milisecond
+  let timeStr = `${date.getHours()}:${date.getMinutes()}`;
+
   return (
     <>
       <article className="widget">
         <div className="weatherIcon">
-          <i className={`wi wi-day-sunny`}></i>
+          <i className={`wi ${weatherState}`}></i>
         </div>
 
         <div className="weatherInfo">
           <div className="temperature">
-            <span>25.5&deg;</span>
+            <span>{temp}&deg;</span>
           </div>
 
           <div className="description">
-            <div className="weatherCondition">Sunny</div>
-            <div className="place">Agra, India</div>
+            <div className="weatherCondition">{weatherMood}</div>
+            <div className="place">
+              {name}, {country}
+            </div>
           </div>
         </div>
 
@@ -29,8 +68,7 @@ const WeatherCard = () => {
                 <i className={'wi wi-sunset'}></i>
               </p>
               <p className="extra-info-leftside">
-                {' '}
-                10: 03 PM <br />
+                {timeStr} PM <br />
                 Sunset
               </p>
             </div>
@@ -40,8 +78,7 @@ const WeatherCard = () => {
                 <i className={'wi wi-humidity'}></i>
               </p>
               <p className="extra-info-leftside">
-                {' '}
-                35 <br />
+                {humidity} <br />
                 Humidity
               </p>
             </div>
@@ -53,8 +90,7 @@ const WeatherCard = () => {
                 <i className={'wi wi-rain'}></i>
               </p>
               <p className="extra-info-leftside">
-                {' '}
-                45 <br />
+                {pressure} <br />
                 Pressure
               </p>
             </div>
@@ -64,8 +100,7 @@ const WeatherCard = () => {
                 <i className={'wi wi-strong-wind'}></i>
               </p>
               <p className="extra-info-leftside">
-                {' '}
-                10 <br />
+                {speed} <br />
                 Speed
               </p>
             </div>
